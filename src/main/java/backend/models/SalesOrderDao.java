@@ -53,7 +53,9 @@ public class SalesOrderDao {
    */
   @SuppressWarnings("unchecked")
   public List<SalesOrder> getAll() {
-    return entityManager.createQuery("from sales_order").getResultList();
+	  
+	  return entityManager.createQuery("from SalesOrder").getResultList();
+
   }
 
   /**

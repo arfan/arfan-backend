@@ -59,6 +59,24 @@ public class ProductController {
 		return "Error listing the Product";
 	}
 	
+	@RequestMapping("/product/read")
+	@ResponseBody 
+	public String read(long code) {
+		
+		Product p = productDao.getById(code);
+		
+		if(p!=null) {
+			try {
+				return mapper.writeValueAsString(p);
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return "Error finding the Product";
+	}
+	
 	@RequestMapping("/product/delete")
 	@ResponseBody
 	public String delete(long code) {

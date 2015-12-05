@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import backend.models.Customer;
 import backend.models.CustomerDao;
-import backend.models.Product;
 import backend.models.SalesOrder;
 import backend.models.SalesOrderDao;
 
@@ -26,13 +24,12 @@ public class SalesOrderController {
 		try {
 			salesOrder = new SalesOrder();
 			salesOrder.setOrderNum(orderNumber);
-			Customer customer = customerDao.getById(customerCode);
-			salesOrder.setCustomer(customer);
+			salesOrder.setCustomerCode(customerCode);
 			
 			salesOrderDao.create(salesOrder);
 			
 		} catch (Exception ex) {
-			return "Error creating the Product: " + ex.toString();
+			return "Error creating the SalesOrder: " + ex.toString();
 		}
 		return "salesOrder succesfully created! (code = " + salesOrder.getOrderNum() + ")";
 	}
@@ -44,8 +41,8 @@ public class SalesOrderController {
 		try {
 			salesOrder = new SalesOrder();
 			salesOrder.setOrderNum(orderNumber);
-			Customer customer = customerDao.getById(customerCode);
-			salesOrder.setCustomer(customer);
+			//Customer customer = customerDao.getById(customerCode);
+			salesOrder.setCustomerCode(customerCode);
 
 			salesOrderDao.update(salesOrder);
 			
@@ -61,22 +58,22 @@ public class SalesOrderController {
 		
 		List<SalesOrder> c = salesOrderDao.getAll();
 		
-//		try {
-//			return mapper.writeValueAsString(c);
-//		} catch (JsonProcessingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			return mapper.writeValueAsString(c);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return "Error listing the SalesOrder";
 	}
 	
 	@RequestMapping("/salesorder/delete")
 	@ResponseBody
-	public String delete(long code) {
+	public String delete(long orderNum) {
 		
 		SalesOrder c = new SalesOrder();
-		c.setOrderNum(code);
+		c.setOrderNum(orderNum);
 		salesOrderDao.delete(c);
 		return "Succesfully delete the salesOrder";
 	
@@ -84,9 +81,6 @@ public class SalesOrderController {
 	
 	@Autowired
 	private SalesOrderDao salesOrderDao;
-	
-	@Autowired
-	private CustomerDao customerDao;
-	
+		
 	private ObjectMapper mapper = new ObjectMapper();
 }

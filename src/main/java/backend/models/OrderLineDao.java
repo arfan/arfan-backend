@@ -53,7 +53,7 @@ public class OrderLineDao {
    */
   @SuppressWarnings("unchecked")
   public List<OrderLine> getAll() {
-    return entityManager.createQuery("from order_line").getResultList();
+    return entityManager.createQuery("from OrderLine").getResultList();
   }
 
   /**

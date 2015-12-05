@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import backend.models.Customer;
 import backend.models.OrderLine;
 import backend.models.OrderLineDao;
 import backend.models.Product;
@@ -27,17 +26,15 @@ public class OrderLineController {
 		OrderLine orderLine = null;
 		try {
 			orderLine = new OrderLine();
+			
+			orderLine.setProductCode(productCode);
 
-			Product product = productDao.getById(productCode);
-			orderLine.setProduct(product);
-
-			SalesOrder salesOrder = salesOrderDao.getById(salesOrderNum);
-			orderLine.setSalesOrder(salesOrder);
+			orderLine.setSalesOrderNum(salesOrderNum);
 
 			orderLineDao.create(orderLine);
 
 		} catch (Exception ex) {
-			return "Error creating the Product: " + ex.toString();
+			return "Error creating the orderlline: " + ex.toString();
 		}
 		return "OrderLine succesfully created! (id = " + orderLine.getId() + ")";
 	}
@@ -49,16 +46,14 @@ public class OrderLineController {
 		try {
 			orderLine = new OrderLine();
 
-			Product product = productDao.getById(productCode);
-			orderLine.setProduct(product);
+			orderLine.setProductCode(productCode);
 
-			SalesOrder salesOrder = salesOrderDao.getById(salesOrderNum);
-			orderLine.setSalesOrder(salesOrder);
+			orderLine.setSalesOrderNum(salesOrderNum);
 
 			orderLineDao.update(orderLine);
 
 		} catch (Exception ex) {
-			return "Error creating the Product: " + ex.toString();
+			return "Error updating the OrderLine: " + ex.toString();
 		}
 		return "OrderLine succesfully updated! (id = " + orderLine.getId() + ")";
 	}

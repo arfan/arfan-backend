@@ -19,18 +19,16 @@ public class OrderLine {
 	private long id;
 
 	@NotNull
-	@ManyToOne
-    @JoinColumn(name = "product_code")
-	private Product product;
+	@Column(name = "product_code")
+	private long productCode;
 	
 	@NotNull
 	@Column(name = "quantity")
 	private int quantity;
 	
 	@NotNull
-	@ManyToOne
-    @JoinColumn(name = "sales_order_num")
-	private SalesOrder salesOrder;
+	@Column(name = "sales_order_num")
+	private long salesOrderNum;
 	
 	public long getId() {
 		return id;
@@ -40,12 +38,12 @@ public class OrderLine {
 		this.id = id;
 	}
 
-	public Product getProduct() {
-		return product;
+	public long getProductCode() {
+		return productCode;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProductCode(long product) {
+		this.productCode = product;
 	}
 
 	public int getQuantity() {
@@ -56,12 +54,12 @@ public class OrderLine {
 		this.quantity = quantity;
 	}
 
-	public SalesOrder getSalesOrder() {
-		return salesOrder;
+	public long getSalesOrderNum() {
+		return salesOrderNum;
 	}
 
-	public void setSalesOrder(SalesOrder salesOrder) {
-		this.salesOrder = salesOrder;
+	public void setSalesOrderNum(long salesOrder) {
+		this.salesOrderNum = salesOrder;
 	}
 
 	

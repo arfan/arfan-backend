@@ -3,8 +3,6 @@ package backend.models;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -17,9 +15,8 @@ public class SalesOrder {
 	long orderNum;
 	
 	@NotNull
-	@ManyToOne
-    @JoinColumn(name = "customer_code")
-    private Customer customer;
+	@Column(name="customer_code")
+	private long customerCode;
 
 	public long getOrderNum() {
 		return orderNum;
@@ -29,12 +26,12 @@ public class SalesOrder {
 		this.orderNum = orderNum;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public long getCustomerCode() {
+		return customerCode;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setCustomerCode(long customer) {
+		this.customerCode = customer;
 	}
 	
 }
